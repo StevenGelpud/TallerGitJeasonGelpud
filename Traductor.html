@@ -110,6 +110,14 @@
                 const resultado = num < 0 ? "menos " + convertirDecimalALetras(Math.abs(num), numerosEspanol) : convertirDecimalALetras(num, numerosEspanol);
                 document.getElementById("resultado").textContent = resultado.toUpperCase();
             }
+
+            function convertirDecimalALetras(num, idioma) {
+                const [entero, decimal] = num.toString().split('.');
+                const enteroLetras = convertirNumeroALetras(parseInt(entero), idioma);
+                const decimalLetras = decimal ? " . " + convertirNumeroALetras(parseInt(decimal), idioma) : "";
+                return enteroLetras + decimalLetras;
+            }
+    
         </script>
     </body>
 </head>
