@@ -26,10 +26,25 @@
             border-radius: 0.25rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
+
+        #resultadoIngles {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00796b;
+            background: #e0f7fa;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
         
         .btn-primary {
             background-color: #00796b;
             border-color: #00796b;
+        }
+
+        .btn-primary:hover {
+            background-color: #004d40;
+            border-color: #004d40;
         }
     </style>
 
@@ -44,6 +59,10 @@
 
             </div>
             <div id="resultado" class="mt-3"></div>
+            <div id="resultadoIngles" class="mt-3"></div>
+            <div>
+                <button class="btn btn-primary mx-1" onclick="traducirIngles()">Traducir a Inglés</button>
+            </div>
         </div>
 
         <script>
