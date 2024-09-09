@@ -76,6 +76,16 @@
                 billones: ["", "un billón", "dos billones", "tres billones", "cuatro billones", "cinco billones", "seis billones", "siete billones", "ocho billones", "nueve billones"]
             };
 
+            const numerosIngles = {
+                unidades: ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],
+                especiales: ["ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"],
+                decenas: ["", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"],
+                centenas: ["", "one hundred", "two hundred", "three hundred", "four hundred", "five hundred", "six hundred", "seven hundred", "eight hundred", "nine hundred"],
+                miles: ["", "thousand"],
+                millones: ["", "million"],
+                billones: ["", "billion"]
+            };
+
             function convertirNumeroALetras(num, idioma) {
                 if (num === 0) return idioma.unidades[0];
                 if (num < 10) return idioma.unidades[num];
@@ -155,6 +165,29 @@
                 const resultado = num < 0 ? "menos " + convertirDecimalALetras(Math.abs(num), numerosEspanol) : convertirDecimalALetras(num, numerosEspanol);
                 document.getElementById("resultado").textContent = resultado.toUpperCase();
             }
+
+            // Función para traducir números a palabras en inglés
+        function traducirIngles() {
+            const inputField = document.getElementById("numero");
+            let num = parseFloat(inputField.value);
+
+            // Validación para números mayores a un billón
+            if (num > 1000000000000) {
+                inputField.value = ""; // Limpiar el campo de entrada
+                inputField.disabled = true; // Deshabilitar el campo de entrada
+                document.getElementById("resultado").textContent = 
+                    "Number too large. Please enter a number smaller than one trillion.";
+                return;
+            }
+
+            if (isNaN(num)) {
+                alert("Please enter a valid number.");
+                return;
+            }
+
+            const resultadoIngles = num < 0 ? "negative " + convertirDecimalALetras(Math.abs(num), numerosIngles) : convertirDecimalALetras(num, numerosIngles);
+            document.getElementById("resultadoIngles").textContent = resultadoIngles.toUpperCase();
+        }
 
             function convertirDecimalALetras(num, idioma) {
                 const [entero, decimal] = num.toString().split('.');
