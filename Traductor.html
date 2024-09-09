@@ -89,7 +89,27 @@
                 document.getElementById("resultadoIngles").textContent = "";
             });
 
-            
+             // Función para traducir números a palabras en español
+            function traducirNumero() {
+                const inputField = document.getElementById("numero");
+                let num = parseFloat(inputField.value);
+                // Validación para números mayores a un billón
+                if (num > 1000000000000) {
+                    inputField.value = ""; // Limpiar el campo de entrada
+                    inputField.disabled = true; // Deshabilitar el campo de entrada
+                    document.getElementById("resultado").textContent = 
+                        "Número demasiado grande. Por favor, ingresa un número menor a un billón.";
+                    return;
+                }
+    
+                if (isNaN(num)) {
+                    alert("Por favor, introduce un número válido.");
+                    return;
+                }
+    
+                const resultado = num < 0 ? "menos " + convertirDecimalALetras(Math.abs(num), numerosEspanol) : convertirDecimalALetras(num, numerosEspanol);
+                document.getElementById("resultado").textContent = resultado.toUpperCase();
+            }
         </script>
     </body>
 </head>
