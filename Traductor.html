@@ -81,6 +81,15 @@
                     ? "Prueba superada, el traductor de números a letras ha cumplido su función. Nos vemos en el siguiente reto." 
                     : "Test passed, the number-to-words converter has fulfilled its function. See you in the next challenge.";
             }
+
+            // Commit 2: limpiar entradas y salidas 
+            document.getElementById("numero").addEventListener("focus", function() {
+                document.getElementById("numero").value = ""; 
+                document.getElementById("resultado").textContent = "";
+                document.getElementById("resultadoIngles").textContent = "";
+            });
+
+            
         </script>
     </body>
 </head>
