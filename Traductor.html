@@ -19,5 +19,68 @@
             </div>
             <div id="resultado" class="mt-3"></div>
         </div>
+
+        <script>
+            const numerosEspanol = {
+                unidades: ["cero", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve"],
+                especiales: ["diez", "once", "doce", "trece", "catorce", "quince", "dieciséis", "diecisiete", "dieciocho", "diecinueve"],
+                decenas: ["", "diez", "veinte", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa"],
+                centenas: ["", "cien", "doscientos", "trescientos", "cuatrocientos", "quinientos", "seiscientos", "setecientos", "ochocientos", "novecientos"],
+                miles: ["", "mil"],
+                millones: ["", "un millón", "dos millones", "tres millones", "cuatro millones", "cinco millones", "seis millones", "siete millones", "ocho millones", "nueve millones"],
+                billones: ["", "un billón", "dos billones", "tres billones", "cuatro billones", "cinco billones", "seis billones", "siete billones", "ocho billones", "nueve billones"]
+            };
+
+            function convertirNumeroALetras(num, idioma) {
+                if (num === 0) return idioma.unidades[0];
+                if (num < 10) return idioma.unidades[num];
+                if (num < 20) return idioma.especiales[num - 10];
+                if (num < 30) {
+                    if (idioma === numerosEspanol) {
+                        return "veinti" + (num % 10 !== 0 ? " " + idioma.unidades[num % 10] : "");
+                    } else {
+                        return idioma.decenas[Math.floor(num / 10)] + (num % 10 !== 0 ? "-" + idioma.unidades[num % 10] : "");
+                    }
+                }
+                if (num < 100) {
+                    if (idioma === numerosEspanol) {
+                        return idioma.decenas[Math.floor(num / 10)] + (num % 10 !== 0 ? " y " + idioma.unidades[num % 10] : "");
+                    } else {
+                        return idioma.decenas[Math.floor(num / 10)] + (num % 10 !== 0 ? (idioma === numerosIngles ? "-" : " ") + idioma.unidades[num % 10] : "");
+                    }
+                }
+                if (num < 1000) {
+                    if (num === 100) {
+                        return idioma === numerosEspanol ? "cien" : "one hundred";
+                    }
+                    if (num < 200) {
+                        // Para números entre 101 y 199
+                        return idioma === numerosEspanol ? "ciento " + convertirNumeroALetras(num % 100, idioma) : "one hundred " + convertirNumeroALetras(num % 100, idioma);
+                    }
+                    return idioma.centenas[Math.floor(num / 100)] + (num % 100 !== 0 ? " " + convertirNumeroALetras(num % 100, idioma) : "");
+                }
+                if (num < 1000000) {
+                    const miles = Math.floor(num / 1000);
+                    const resto = num % 1000;
+                    return (miles === 1 ? (idioma === numerosEspanol ? "mil" : "thousand") : convertirNumeroALetras(miles, idioma) + (idioma === numerosEspanol ? " mil" : " thousand")) + (resto !== 0 ? " " + convertirNumeroALetras(resto, idioma) : "");
+                }
+                if (num < 1000000000) {
+                    const millones = Math.floor(num / 1000000);
+                    const resto = num % 1000000;
+                    return (millones === 1 ? (idioma === numerosEspanol ? "un millón" : "one million") : convertirNumeroALetras(millones, idioma) + (idioma === numerosEspanol ? " millones" : " million")) + (resto !== 0 ? " " + convertirNumeroALetras(resto, idioma) : "");
+                }
+                if (num < 1000000000000) {
+                    const billones = Math.floor(num / 1000000000);
+                    const resto = num % 1000000000;
+                    return (billones === 1 ? (idioma === numerosEspanol ? "mil" : "thousand") : convertirNumeroALetras(billones, idioma) + (idioma === numerosEspanol ? " mil" : " thousand")) + (resto !== 0 ? " " + convertirNumeroALetras(resto, idioma) : "");
+                }
+    
+                
+            
+                return idioma === numerosEspanol 
+                    ? "Prueba superada, el traductor de números a letras ha cumplido su función. Nos vemos en el siguiente reto." 
+                    : "Test passed, the number-to-words converter has fulfilled its function. See you in the next challenge.";
+            }
+        </script>
     </body>
 </head>
