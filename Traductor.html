@@ -117,6 +117,26 @@
                 const decimalLetras = decimal ? " . " + convertirNumeroALetras(parseInt(decimal), idioma) : "";
                 return enteroLetras + decimalLetras;
             }
+
+            // Función para habilitar o deshabilitar el campo de entrada basado en la longitud del número
+            function verificarLongitud() {
+                const inputField = document.getElementById("numero");
+                const numLength = inputField.value.length;
+    
+                if (numLength >= 13) {
+                    inputField.value = ""; // Limpiar el campo de entrada
+                    inputField.disabled = true;
+                    document.getElementById("resultado").textContent = 
+                        "El número superó nuestras expectativas; introduce un número menor a 13 dígitos.";
+                    inputField.disabled = false; 
+                    } else {
+                    inputField.disabled = false; // Habilitar el campo si el número tiene menos de 13 dígitos
+                }
+            }
+    
+            // Añadir el evento de entrada al campo de número
+            document.getElementById("numero").addEventListener("input", verificarLongitud);
+    
     
         </script>
     </body>
